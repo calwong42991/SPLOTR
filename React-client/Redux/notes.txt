@@ -1,0 +1,81 @@
+import redux
+
+store
+  create constant for create store 
+    - function to create store
+    - needs to be initialized by a reducer
+      - only thing that can update the state
+      - strongly coneected to the store
+      Create Reducer first then the store
+
+Reducer 
+  - has 2 args
+    state, arguments
+  - getState()
+    get state of store
+  - state is just an object most of the time
+
+Action
+  - dispatch
+    takes args and an Action  
+    must have at type property
+  - type
+    - this is a unique identifier for the action 
+    - all uppercase
+  - payload
+    - object grouping of all the properties 
+      example:
+        value, name, id
+        payload: {
+          value: '',
+          name: ''
+        }
+  - action.type = type
+    - then update state:
+      - never modify original data
+      - copy data first
+      - return {
+        ...state,
+        counter: state.counter += 1
+      }
+    - do something to state if action type is what the type is
+
+Subscription
+  - when state is updated do something
+  - takes a function
+  - on state update do this
+  - 
+  
+npm install react-redux 
+  - connecting react to redux
+  gives you Provider
+    - helper function to inject redux to react
+    - wrap provider around app
+    - pass by store
+
+In your componenet import connect from react-redux
+  - This is an higher order function
+  - used in export default
+  - it is a function that returns an higher order function
+  - connect()('react class');
+  - mapStateToProps = state => {
+      return {
+        ctr: state.counter
+      };
+    }
+  - pass it into connect
+    connect(mapStateToProps)('react class');
+    now u use this.props.ctr instead of original state in class
+- mapdispatchtoprops
+  - define props name that hold ref to functions
+  - takes in dispatch and returns an objects with ref to functions
+  mapDispatchToProps = dispatch => {
+    return {
+      onIncrementCounter: () => dispatch({
+        type: 'INCREMENT';
+      })
+    }
+  }
+
+  - now on click you can refrence is with this.onIncrmentCounter
+  - pass it as a second argument of connect
